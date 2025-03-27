@@ -42,11 +42,10 @@ const Dashboard = () => {
           <p className="text-sm text-gray-500">{reports?.length}</p>
         </div>
         <div className="border border-gray-300 rounded-md p-4">
-          <h1 className="text-2xl font-bold">Rejected Reports</h1>
+          <h1 className="text-2xl font-bold">Rejected Claims</h1>
           <p className="text-sm text-gray-500">{reports?.length}</p>
         </div>
       </div>
-      {/* <Stats /> */}
 
       <div className="flex flex-col gap-2 border border-gray-300 rounded-md p-4">
         <h3 className="text-2xl font-bold">Recent Claims</h3>

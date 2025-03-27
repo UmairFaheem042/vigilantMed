@@ -16,11 +16,15 @@ const claimSchema = new mongoose.Schema(
       required: true,
     },
     diagnosis: {
+      type: Array,
+      required: true,
+    },
+    physician: {
       type: String,
       required: true,
     },
     procedure: {
-      type: String,
+      type: Array,
       required: true,
     },
     admissionDate: {

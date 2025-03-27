@@ -10,11 +10,18 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [dob, setDob] = useState("");
+  const [gender, setGender] = useState("");
+
+  console.log(dob, gender);
+  // DOB
+  // GENDER
+  // ADD TO SCHEMA
 
   async function handleRegister(e) {
     e.preventDefault();
-    const result = await register(name, email, password, confirmPassword);
-    
+    const result = await register(name, email, password, confirmPassword, dob, gender);
+
     if (result) navigate("/dashboard");
   }
   return (
@@ -63,6 +70,38 @@ const Register = () => {
           onChange={(e) => setConfirmPassword(e.target.value)}
           required
         />
+        <input
+          type="date"
+          placeholder="Date of Birth"
+          className="input w-full"
+          value={dob}
+          onChange={(e) => setDob(e.target.value)}
+        />
+        {/* radio buttons for gender */}
+        <div className="flex gap-4">
+          <div className="flex items-center gap-2">
+            <input
+              type="radio"
+              id="male"
+              name="gender"
+              value="male"
+              className="radio"
+              onChange={(e) => setGender(e.target.value)}
+            />
+            <label htmlFor="male">Male</label>
+          </div>
+          <div className="flex items-center gap-2">
+            <input
+              type="radio"
+              id="female"
+              name="gender"
+              value="female"
+              className="radio"
+              onChange={(e) => setGender(e.target.value)}
+            />
+            <label htmlFor="female">Female</label>
+          </div>
+        </div>
         <button type="submit" className="btn btn-accent text-white">
           Register
         </button>

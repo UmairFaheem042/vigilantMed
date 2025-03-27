@@ -1,8 +1,21 @@
 import React from "react";
 import { formatDateTime } from "../utils/date-time";
-
+import { formatText } from "../utils/format-text";
+import { providerMapping, physicianMapping } from "../utils/mapping";
 
 const Details = ({ claim }) => {
+  const diagnosis = Object.keys(claim.diagnosis[0]).map((item) =>
+    formatText(item)
+  );
+
+  const insuranceProvider = Object.keys(providerMapping).find(
+    (key) => providerMapping[key] === claim.insuranceProvider
+  );
+
+  const physician = Object.keys(physicianMapping).find(
+    (key) => physicianMapping[key] === claim.physician
+  );
+
   return (
     <div className="w-full max-w-[600px] flex flex-col gap-4 border border-gray-300 rounded-md p-4">
       <p>
@@ -13,10 +26,10 @@ const Details = ({ claim }) => {
       </p>
       <p>
         Insurance Provider:{" "}
-        <span className="font-bold">{claim.insuranceProvider}</span>
+        <span className="font-bold">{insuranceProvider}</span>
       </p>
       <p>
-        Diagnosis: <span className="font-bold">{claim.diagnosis}</span>
+        Diagnosis: <span className="font-bold">{diagnosis}</span>
       </p>
       <p>
         Procedure: <span className="font-bold">{claim.procedure}</span>

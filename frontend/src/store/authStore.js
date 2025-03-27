@@ -12,9 +12,10 @@ const useAuthStore = create((set, get) => ({
         credentials: "include",
       });
       const data = await res.json();
+      console.log(data);
 
       if (data.userId) {
-        set({ user: data.userId });
+        set({ user: data });
       } else {
         set({ user: null });
       }
@@ -26,14 +27,21 @@ const useAuthStore = create((set, get) => ({
     }
   },
 
-  register: async (name, email, password, confirmPassword) => {
+  register: async (name, email, password, confirmPassword, dob, gender) => {
     try {
       const res = await fetch("http://localhost:3000/api/users/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ name, email, password, confirmPassword }),
+        body: JSON.stringify({
+          name,
+          email,
+          password,
+          confirmPassword,
+          dob,
+          gender,
+        }),
         credentials: "include",
       });
       const data = await res.json();

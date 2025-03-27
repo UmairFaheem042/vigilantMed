@@ -13,6 +13,8 @@ const useClaimStore = create((set, get) => ({
         credentials: "include",
       });
       const data = await res.json();
+      console.log(data);
+
       set({ claims: data });
     } catch (error) {
       console.log(error);
@@ -49,10 +51,16 @@ const useClaimStore = create((set, get) => ({
         credentials: "include",
       });
       const data = await res.json();
-      // remove claim from claims array using id
-     
-      //   set({ claims: data });
-      console.log("Hello Deleting", id);
+      console.log(data);
+      
+      set((state) => ({
+        claims: {
+          ...state.claims,
+          data: state.claims.data.filter((claim) => claim._id !== id),
+        },
+      }));
+
+      console.log(get().claims);
     } catch (error) {
       console.log(error);
     } finally {

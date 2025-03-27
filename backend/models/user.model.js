@@ -15,6 +15,14 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: [true, "Password is required"],
     },
+    dob: {
+      type: String,
+      required: [true, "Date of birth is required"],
+    },
+    gender: {
+      type: String,
+      required: [true, "Gender is required"],
+    },
     role: {
       type: String,
       enum: ["user", "admin"],

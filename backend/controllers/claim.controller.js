@@ -1,6 +1,11 @@
 import Claim from "../models/claim.model.js";
 import User from "../models/user.model.js";
 import Report from "../models/report.model.js";
+import {
+  diagnosisMapping,
+  procedureMapping,
+  physicianMapping,
+} from "../utils/mapping.js";
 
 export const getClaims = async (req, res) => {
   try {
@@ -14,7 +19,8 @@ export const getClaims = async (req, res) => {
         message: "Unauthorized",
       });
     }
-    const claims = await Claim.find({ user: userId });
+    // in descending order
+    const claims = await Claim.find({ user: userId }).sort({ createdAt: -1 });
 
     res.status(200).json({
       success: true,
@@ -67,7 +73,7 @@ export const createClaim = async (req, res) => {
       patientName,
       hospitalName,
       diagnosis,
-      procedure,
+      physician,
       admissionDate,
       dischargeDate,
       totalBill,
@@ -77,7 +83,7 @@ export const createClaim = async (req, res) => {
       !patientName ||
       !hospitalName ||
       !diagnosis ||
-      !procedure ||
+      !physician ||
       !admissionDate ||
       !dischargeDate ||
       !totalBill ||
@@ -89,12 +95,37 @@ export const createClaim = async (req, res) => {
       });
     }
 
+    const createDiagnosisMap = (diagnosisMapping, selectedDiagnoses) => {
+      return Object.fromEntries(
+        diagnosisMapping.map((diagnosis) => [
+          diagnosis,
+          selectedDiagnoses.includes(diagnosis),
+        ])
+      );
+    };
+
+    const filteredDiagnosisMapping1 = createDiagnosisMap(
+      diagnosis,
+      diagnosisMapping
+    );
+
+    const filteredDiagnosisMapping = diagnosisMapping.filter((diagnose) => {
+      return diagnosis.includes(diagnose);
+    });
+
+    const filteredProcedureMapping = filteredDiagnosisMapping.map(
+      (diagnosis) => {
+        return procedureMapping[diagnosis];
+      }
+    );
+
     const claim = await Claim.create({
       user: userId,
       patientName,
       hospitalName,
-      diagnosis,
-      procedure,
+      diagnosis: filteredDiagnosisMapping1,
+      procedure: filteredProcedureMapping,
+      physician,
       admissionDate,
       dischargeDate,
       totalBill,
@@ -102,7 +133,7 @@ export const createClaim = async (req, res) => {
       fraudPrediction: "Pending",
     });
 
-    // push to user claims array
+    // // push to user claims array
     await User.findByIdAndUpdate(userId, {
       $push: { claims: claim._id },
     });

@@ -11,6 +11,7 @@ import LandingPage from "./pages/landing";
 import Header from "./components/Header.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import CreateClaim from "./pages/createClaim.jsx";
+// import Profile from "./pages/profile";
 
 const App = () => {
   return (
@@ -32,6 +33,8 @@ const App = () => {
 
           <Route path="/reports" element={<Reports />} />
           <Route path="/reports/:id" element={<Report />} />
+
+          {/* <Route path="/profile" element={<Profile />} /> */}
         </Route>
       </Routes>
     </div>

@@ -40,7 +40,7 @@ const useClaimStore = create((set, get) => ({
 
       const data = await res.json();
 
-      set({ claims: [...get().claims, data] });
+      // set({ claims: [...get().claims, data] });
       return data;
     } catch (error) {
       console.log(error);

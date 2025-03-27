@@ -9,6 +9,9 @@ const Claim = () => {
   const { getClaim, claim, isLoading } = useClaimStore();
   const navigate = useNavigate();
 
+  console.log(claim);
+  
+
   let report = true;
 
   useEffect(() => {

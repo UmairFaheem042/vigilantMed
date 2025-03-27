@@ -23,7 +23,7 @@ const Claims = () => {
   if (isLoading) return <Loading />;
 
   return (
-    <div className="p-4">
+    <div className="py-4 px-6">
       <div className="flex flex-col gap-4">
         <header className="my-4 flex justify-between items-center">
           <h1 className="text-2xl font-bold">All Claims</h1>

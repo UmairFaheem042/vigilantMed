@@ -35,7 +35,7 @@ const Claim = () => {
   if (isLoading) return <Loading />;
 
   return (
-    <div className="flex-1 p-4 flex flex-col gap-4 items-center justify-center ">
+    <div className="flex-1 py-4 px-6 flex flex-col gap-4 items-center justify-center ">
       <h1 className="text-2xl font-bold">Claim Details</h1>
       {claim && <Details claim={claim} />}
 
