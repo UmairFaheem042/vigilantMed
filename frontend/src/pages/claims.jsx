@@ -35,11 +35,11 @@ const Claims = () => {
                   <span className="hidden sm:flex">View</span> Claim
                 </Link>
               </button>
-              <button className="btn btn-primary text-white">
+              {/* <button className="btn btn-primary text-white">
                 <Link to={`/reports/${item._id}`} className="flex items-center gap-2">
                   <span className="hidden sm:flex">View</span> Report
                 </Link>
-              </button>
+              </button> */}
             </div>
           </div>
         ))}

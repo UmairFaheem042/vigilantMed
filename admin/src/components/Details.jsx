@@ -29,7 +29,10 @@ const Details = ({ claim, status, remarks }) => {
         <span className="font-bold">{insuranceProvider}</span>
       </p>
       <p>
-        Diagnosis: <span className="font-bold">{diagnosis}</span>
+        Diagnosis:{" "}
+        <span className="font-bold">
+          {diagnosis.map((item) => item).join(", ")}
+        </span>
       </p>
       <p>
         Physician: <span className="font-bold">{physician}</span>
