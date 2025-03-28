@@ -23,6 +23,8 @@ export const getReports = async (req, res) => {
 export const getReport = async (req, res) => {
   try {
     const { id } = req.params;
+    console.log(id);
+    
     // this id is claimId based on that search reports and populate claimId
     const report = await Report.findOne({ claimId: id }).populate("claimId");
     if (!report) {
@@ -48,6 +50,9 @@ export const getReport = async (req, res) => {
 export const createReport = async (req, res) => {
   try {
     const { claimId, claimStatus, remarks } = req.body;
+    console.log("Inside createReport Controller ClaimID: ", claimId);
+    console.log("Inside createReport Controller claimStatus: ", claimStatus);
+
     const userId = req.user.id;
     if (!userId) {
       return res.status(401).json({
@@ -71,26 +76,22 @@ export const createReport = async (req, res) => {
       });
     }
 
-    // ! TODO: ML Model will predict the fraud prediction => this will be done prior to generating the report
-    // const report = "Pending";
-    // // const { fraudPrediction, probabilityScore } = runMLModel(claim);
 
-    // const newReport = await Report.create({
-    //   claimId,
-    //   userId,
-    //   report,
-    //   //   fraudPrediction,
-    //   //   probabilityScore,
-    // });
+    const newReport = await Report.create({
+      claimId,
+      userId,
+      claimStatus,
+      remarks
+    });
 
-    // await User.findByIdAndUpdate(userId, {
-    //   $push: { reports: newReport._id },
-    // });
+    await User.findByIdAndUpdate(userId, {
+      $push: { reports: newReport._id },
+    });
 
     res.status(201).json({
       success: true,
       message: "Report created successfully",
-      // data: newReport,
+      data: newReport,
     });
   } catch (error) {
     res.status(500).json({

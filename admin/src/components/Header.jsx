@@ -10,7 +10,7 @@ const Header = () => {
   const authLinks = [
     { name: "Dashboard", path: "/dashboard" },
     { name: "Claims", path: "/claims" },
-    { name: "Reports", path: "/reports" },
+    // { name: "Reports", path: "/reports" },
   ];
 
   const nonAuthLinks = [{ name: "Login", path: "/login" }];
@@ -28,8 +28,13 @@ const Header = () => {
       <nav className="max-w-[1600px] mx-auto px-6 py-4 flex justify-between items-center gap-4">
         <Link to="/">
           <h1 className="text-2xl font-bold flex items-center">
-            <span className="block sm:hidden">🩺<span className="text-sm font-normal uppercase">Admin</span></span>
-            <span className="hidden sm:block">🩺VigilantMED<span className="text-sm font-normal uppercase">Admin</span></span>
+            <span className="block sm:hidden">
+              🩺<span className="text-sm font-normal uppercase">Admin</span>
+            </span>
+            <span className="hidden sm:block">
+              🩺VigilantMED
+              <span className="text-sm font-normal uppercase">Admin</span>
+            </span>
           </h1>
         </Link>
         {/* large screen */}

@@ -12,6 +12,7 @@ const reportRouter = express.Router();
 reportRouter.get("/", protect, getReports);
 reportRouter.post("/", protect, createReport);
 reportRouter.delete("/:id", protect, deleteReport);
-reportRouter.get("/:id", protect, getReport);
+// reportRouter.get("/:id", protect, getReport);
+reportRouter.get("/:id", getReport);
 
 export default reportRouter;

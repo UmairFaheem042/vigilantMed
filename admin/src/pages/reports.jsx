@@ -12,8 +12,6 @@ const Reports = () => {
   }, []);
 
   console.log(reports);
-  
-
 
   return (
     <div className="p-4">
@@ -31,12 +29,14 @@ const Reports = () => {
           >
             <div className="flex items-center gap-2">
               <h1>{item.claimId.patientName}</h1>
-              <p className="text-sm text-gray-500">@{item.claimId.hospitalName}</p>
+              <p className="text-sm text-gray-500">
+                @{item.claimId.hospitalName}
+              </p>
             </div>
             <div className="flex gap-2">
-              <button className="bg-emerald-500 text-white p-2 rounded-md cursor-pointer">
+              {/* <button className="bg-emerald-500 text-white p-2 rounded-md cursor-pointer">
                 <Link to={`/reports/${item._id}`}>View Claim</Link>
-              </button>
+              </button> */}
               <button className="bg-blue-500 text-white p-2 rounded-md cursor-pointer">
                 <Link to={`/reports/${item._id}`}>View Report</Link>
               </button>

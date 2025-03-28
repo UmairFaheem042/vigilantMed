@@ -22,6 +22,7 @@ const useReportStore = create((set, get) => ({
         credentials: "include",
       });
       const data = await res.json();
+      console.log(data);
       set({ report: data });
     } catch (error) {
       console.log(error);

@@ -22,6 +22,8 @@ const useReportStore = create((set, get) => ({
         credentials: "include",
       });
       const data = await res.json();
+      console.log(data);
+
       set({ report: data });
     } catch (error) {
       console.log(error);
@@ -30,17 +32,26 @@ const useReportStore = create((set, get) => ({
 
   createReport: async (report) => {
     try {
-      console.log(report);
-      // const res = await fetch("http://localhost:3000/api/reports", {
-      //   method: "POST",
-      //   credentials: "include",
-      //   body: JSON.stringify(report),
-      // });
-      // const data = await res.json();
+      console.log("Inside reportStore: ", report);
 
-      // set((state) => ({
-      //   reports: [...state.reports, data],
-      // }));
+      const res = await fetch("http://localhost:3000/api/reports", {
+        method: "POST",
+        credentials: "include",
+        body: JSON.stringify({
+          claimId: report?.claimId,
+          claimStatus: report?.claimStatus,
+          remarks: report?.remarks
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await res.json();
+      console.log(data);
+
+      set((state) => ({
+        reports: [...state.reports, data],
+      }));
 
       return true;
     } catch (error) {

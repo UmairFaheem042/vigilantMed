@@ -3,7 +3,7 @@ import { formatDateTime } from "../utils/date-time";
 import { formatText } from "../utils/format-text";
 import { providerMapping, physicianMapping } from "../utils/mapping";
 
-const Details = ({ claim }) => {
+const Details = ({ claim, status, remarks }) => {
   const diagnosis = Object.keys(claim.diagnosis[0]).map((item) =>
     formatText(item)
   );
@@ -32,7 +32,7 @@ const Details = ({ claim }) => {
         Diagnosis: <span className="font-bold">{diagnosis}</span>
       </p>
       <p>
-        Procedure: <span className="font-bold">{claim.procedure}</span>
+        Physician: <span className="font-bold">{physician}</span>
       </p>
       <p>
         Admission Date:{" "}
@@ -45,10 +45,22 @@ const Details = ({ claim }) => {
       <p>
         Total Bill: <span className="font-bold">{claim.totalBill}</span>
       </p>
-      <p>
-        Fraud Prediction:{" "}
-        <span className="font-bold">{claim.fraudPrediction}</span>
-      </p>
+      {status ? (
+        <p>
+          Status:{" "}
+          {/* <span className="font-bold">{claim.fraudPrediction}</span> */}
+          <span className="font-bold capitalize">{status}</span>
+        </p>
+      ) : (
+        <p>
+          Status: <span className="font-bold">{claim.fraudPrediction}</span>
+        </p>
+      )}
+      {remarks && (
+        <p>
+          Remarks: <span className="font-bold">{remarks}</span>
+        </p>
+      )}
     </div>
   );
 };

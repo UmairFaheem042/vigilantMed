@@ -8,21 +8,26 @@ const CreateReport = () => {
   const { id } = useParams();
 
   const [remarks, setRemarks] = useState("");
+  const [selectedStatus, setSelectedStatus] = useState("");
 
-  const claimStatus = "Approved";
+  // const claimStatus = "Approved"
+  const handleStatusChange = (e) => {
+    setSelectedStatus(e.target.value);
+  };
 
   async function handleSubmit(e) {
     e.preventDefault();
 
     const result = await createReport({
       claimId: id,
-      claimStatus,
+      claimStatus: selectedStatus,
       remarks,
     });
 
+    console.log("Inside handleSubmit:", result);
+
     if (result) {
       setRemarks("");
-
       navigate("/dashboard");
     } else {
       alert("Failed to create claim");
@@ -49,15 +54,17 @@ const CreateReport = () => {
         </div>
         <div className="flex flex-col gap-2 cursor-not-allowed">
           <label htmlFor="hospitalName">Claim Status</label>
-          <input
-            type="text"
-            className={`input w-full font-semibold pointer-events-none bg-gray-100 ${
-              claimStatus === "Approved" ? "text-success" : "text-error"
-            }`}
-            value={claimStatus}
-            readOnly
-            // disabled
-          />
+          <select
+            id="claimStatus"
+            value={selectedStatus}
+            onChange={handleStatusChange}
+            className="block w-full px-3 py-2 border border-gray-300 rounded-md  focus:outline-none "
+            required
+          >
+            <option value="">Select Status</option>
+            <option value="approved">Approved</option>
+            <option value="rejected">Rejected</option>
+          </select>
         </div>
         <div className="flex flex-col gap-2">
           <label htmlFor="diagnosis">Remarks</label>
