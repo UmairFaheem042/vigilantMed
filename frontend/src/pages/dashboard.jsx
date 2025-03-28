@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import useAuthStore from "../store/authStore";
 import { Link } from "react-router-dom";
 import useClaimStore from "../store/claimStore";
@@ -8,18 +8,25 @@ import Loading from "../components/Loading";
 const Dashboard = () => {
   const { user, checkAuth, isLoading } = useAuthStore();
   const { claims, fetchClaims } = useClaimStore();
-  const { reports, fetchReports } = useReportStore();
+  const { reports, fetchReports, analyzeClaims, approvedClaims, rejectedClaims } = useReportStore();
+  console.log(approvedClaims);
+  
+  const result = analyzeClaims();
+  console.log(result);
+  
 
   useEffect(() => {
     checkAuth();
     fetchClaims();
     fetchReports();
+    // analyzeClaims();
   }, []);
 
-  
-  const claimsToShow = claims?.data?.slice(0, 3);
+  const claimsToShow = claims?.data?.slice(0, 5);
   const reportsToShow = reports?.slice(0, 3);
-  
+
+  console.log(reports);
+
   if (isLoading) return <Loading />;
 
   return (
@@ -39,11 +46,11 @@ const Dashboard = () => {
         </div>
         <div className="border border-gray-300 rounded-md p-4">
           <h1 className="text-2xl font-bold">Approved Claims</h1>
-          <p className="text-sm text-gray-500">{reports?.length}</p>
+          <p className="text-sm text-gray-500">{result.approved}</p>
         </div>
         <div className="border border-gray-300 rounded-md p-4">
           <h1 className="text-2xl font-bold">Rejected Claims</h1>
-          <p className="text-sm text-gray-500">{reports?.length}</p>
+          <p className="text-sm text-gray-500">{result.rejected}</p>
         </div>
       </div>
 
@@ -69,7 +76,7 @@ const Dashboard = () => {
         ))}
       </div>
 
-      <div className="flex flex-col gap-2 border border-gray-300 rounded-md p-4">
+      {/* <div className="flex flex-col gap-2 border border-gray-300 rounded-md p-4">
         <h3 className="text-2xl font-bold">Recent Reports</h3>
         {reportsToShow?.map((item) => (
           <div key={item._id} className="flex justify-between items-center">
@@ -81,9 +88,8 @@ const Dashboard = () => {
             </div>
             <div className="flex gap-2">
               <button className="btn btn-success text-white">
-                {/* ! this is routing taking report Id but we can try with claimId also later on */}
                 <Link
-                  to={`/reports/${item._id}`}
+                  to={`/claims/${item.claimId._id}`}
                   className="flex items-center gap-2"
                 >
                   <span className="hidden sm:flex">View</span> Report
@@ -92,7 +98,7 @@ const Dashboard = () => {
             </div>
           </div>
         ))}
-      </div>
+      </div> */}
     </div>
   );
 };

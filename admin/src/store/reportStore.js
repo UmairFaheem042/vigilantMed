@@ -3,6 +3,22 @@ import { create } from "zustand";
 const useReportStore = create((set, get) => ({
   reports: [],
   report: null,
+
+  analyzeClaims: () => {
+    let approved = 0;
+    let rejected = 0;
+
+    get().reports?.forEach((report) => {
+      if (report.claimStatus === "approved") {
+        approved++;
+      } else if (report.claimStatus === "rejected") {
+        rejected++;
+      }
+    });
+
+    return { approved, rejected }
+  },
+  
   fetchReports: async () => {
     try {
       const res = await fetch("http://localhost:3000/api/reports", {

@@ -6,7 +6,9 @@ import Loading from "../components/Loading";
 
 const Dashboard = () => {
   const { claims, fetchClaims } = useClaimStore();
-  const { reports, fetchReports } = useReportStore();
+  const { reports, fetchReports, analyzeClaims } = useReportStore();
+  const result = analyzeClaims();
+  console.log(result);
 
   useEffect(() => {
     // checkAuth();
@@ -14,8 +16,8 @@ const Dashboard = () => {
     fetchReports();
   }, []);
 
-  const claimsToShow = claims?.data?.slice(0, 3);
-  const reportsToShow = reports?.slice(0, 3);
+  const claimsToShow = claims?.data?.slice(0, 5);
+  // const reportsToShow = reports?.slice(0, 3);
 
   return (
     <div className="max-w-[1600px] mx-auto w-full flex-1 py-4 px-6 flex flex-col gap-6">
@@ -34,11 +36,11 @@ const Dashboard = () => {
         </div>
         <div className="border border-gray-300 rounded-md p-4">
           <h1 className="text-2xl font-bold">Approved Claims</h1>
-          <p className="text-sm text-gray-500">{reports?.length}</p>
+          <p className="text-sm text-gray-500">{result.approved}</p>
         </div>
         <div className="border border-gray-300 rounded-md p-4">
           <h1 className="text-2xl font-bold">Rejected Reports</h1>
-          <p className="text-sm text-gray-500">{reports?.length}</p>
+          <p className="text-sm text-gray-500">{result.rejected}</p>
         </div>
       </div>
 
@@ -65,31 +67,7 @@ const Dashboard = () => {
         ))}
       </div>
 
-      {/* recent reports */}
-      <div className="flex flex-col gap-2 border border-gray-300 rounded-md p-4">
-        <h3 className="text-2xl font-bold">Recent Reports</h3>
-        {reportsToShow?.map((item) => (
-          <div key={item._id} className="flex justify-between items-center">
-            <div className="flex flex-col">
-              <h1>{item?.claimId?.patientName}</h1>
-              <p className="text-sm text-gray-500">
-                @{item?.claimId?.hospitalName}
-              </p>
-            </div>
-            <div className="flex gap-2">
-              <button className="btn btn-success text-white">
-                {/* ! this is routing taking report Id but we can try with claimId also later on */}
-                <Link
-                  to={`/reports/${item._id}`}
-                  className="flex items-center gap-2"
-                >
-                  <span className="hidden sm:flex">View</span> Report
-                </Link>
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>
+
     </div>
   );
 };

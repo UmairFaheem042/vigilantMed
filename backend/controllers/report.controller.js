@@ -23,8 +23,7 @@ export const getReports = async (req, res) => {
 export const getReport = async (req, res) => {
   try {
     const { id } = req.params;
-    console.log(id);
-    
+
     // this id is claimId based on that search reports and populate claimId
     const report = await Report.findOne({ claimId: id }).populate("claimId");
     if (!report) {

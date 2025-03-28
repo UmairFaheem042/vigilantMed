@@ -7,6 +7,10 @@ const Report = () => {
   const { id } = useParams();
   const { report, fetchReport } = useReportStore();
 
+  console.log(report);
+  
+  console.log(id);
+  
   useEffect(() => {
     fetchReport(id);
   }, [id]);
