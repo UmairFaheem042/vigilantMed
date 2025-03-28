@@ -4,6 +4,8 @@ import { formatText } from "../utils/format-text";
 import { providerMapping, physicianMapping } from "../utils/mapping";
 
 const Details = ({ claim }) => {
+
+  // if claimStatus is not in the claim model then try rendering from report
   const diagnosis = Object.keys(claim.diagnosis[0]).map((item) =>
     formatText(item)
   );

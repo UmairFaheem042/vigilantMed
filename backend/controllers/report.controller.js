@@ -83,14 +83,14 @@ export const createReport = async (req, res) => {
     //   //   probabilityScore,
     // });
 
-    await User.findByIdAndUpdate(userId, {
-      $push: { reports: newReport._id },
-    });
+    // await User.findByIdAndUpdate(userId, {
+    //   $push: { reports: newReport._id },
+    // });
 
     res.status(201).json({
       success: true,
       message: "Report created successfully",
-      data: newReport,
+      // data: newReport,
     });
   } catch (error) {
     res.status(500).json({

@@ -9,7 +9,6 @@ import { protect } from "../middlewares/authMiddleware.js";
 
 const claimRouter = express.Router();
 
-// protected routes
 claimRouter.get("/", protect, getClaims);
 claimRouter.post("/", protect, createClaim);
 claimRouter.delete("/:id", protect, deleteClaim);

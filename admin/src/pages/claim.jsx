@@ -6,18 +6,18 @@ import Loading from "../components/Loading";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-
 const Claim = () => {
   const { id } = useParams();
-  const { getClaim, claim, isLoading } = useClaimStore();
+  const { getClaim, claim, isLoading, claimStatus, setClaimStatus } =
+    useClaimStore();
   const navigate = useNavigate();
 
   const [report, setReport] = useState(false);
 
-  // let report = !true;
-
   function handleGenerateReport() {
-    setReport(true);
+    // ML Model will be called here to predict the fraud prediction
+    // setReport(true);
+    // navigate(`/reports/${claim?._id}`);
   }
 
   useEffect(() => {
@@ -26,10 +26,9 @@ const Claim = () => {
 
   const handleCheckClaimStatus = () => {
     console.log("Checking Claim Status");
-    // createReport upon successfull generation, redirect to report page
-
-    // reportId is the id of the report that is created
-    navigate(`/reports/${claim?._id}`);
+    // ML Model will be called here to predict the fraud prediction
+    // setClaimStatus("Approved") OR setClaimStatus("Rejected");
+    setReport(true);
   };
 
   if (isLoading) return <Loading />;
@@ -43,7 +42,7 @@ const Claim = () => {
         // <button onClick={handleCheckClaimStatus} className="btn btn-warning ">
         //   Generate Report
         // </button>
-        <button onClick={handleGenerateReport} className="btn btn-warning ">
+        <button onClick={handleCheckClaimStatus} className="btn btn-warning ">
           Check Claim Status
         </button>
       )}
@@ -52,7 +51,10 @@ const Claim = () => {
         <>
           {" "}
           <h1 className="text-success font-bold uppercase">Approved</h1>
-          <button className="btn btn-neutral text-white font-semibold">
+          <button
+            className="btn btn-neutral text-white font-semibold"
+            onClick={handleGenerateReport}
+          >
             <Link to={`/create-report/${claim?._id}`}>Generate Report</Link>
           </button>
         </>

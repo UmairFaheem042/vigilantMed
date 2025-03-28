@@ -3,6 +3,10 @@ import { create } from "zustand";
 const useClaimStore = create((set, get) => ({
   claims: [],
   claim: null,
+
+  claimStatus: null,
+  setClaimStatus: (status) => set({ claimStatus: status }),
+  
   isLoading: false,
   isError: false,
 
@@ -52,7 +56,7 @@ const useClaimStore = create((set, get) => ({
       });
       const data = await res.json();
       console.log(data);
-      
+
       set((state) => ({
         claims: {
           ...state.claims,

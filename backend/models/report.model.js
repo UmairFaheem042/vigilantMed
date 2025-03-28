@@ -2,31 +2,16 @@ import mongoose from "mongoose";
 
 const reportSchema = new mongoose.Schema(
   {
-    claimId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Claim",
-      required: true,
-    },
+    claimId: { type: mongoose.Schema.Types.ObjectId, ref: "Claim", required: true },
     report: {
       type: String,
       required: true,
       enum: ["Genuine", "Fraud", "Pending"],
       default: "Pending",
     },
-    userId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-      required: true,
-    },
-    // probabilityScore: {
-    //   type: Number,
-    //   required: true,
-    // },
-    // fraudPrediction: {
-    //   type: String,
-    //   required: true,
-    //   enum: ["Genuine", "Fraud"],
-    // },
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+    clamStatus: { type: String, enum: ["Pending", "Approved", "Rejected"], default: "Pending" },
+    remarks: { type: String, required: true },
   },
   { timestamps: true }
 );

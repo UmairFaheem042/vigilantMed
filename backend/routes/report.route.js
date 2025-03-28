@@ -11,10 +11,7 @@ const reportRouter = express.Router();
 
 reportRouter.get("/", protect, getReports);
 reportRouter.post("/", protect, createReport);
-
-// only done by admin
 reportRouter.delete("/:id", protect, deleteReport);
-
 reportRouter.get("/:id", protect, getReport);
 
 export default reportRouter;
