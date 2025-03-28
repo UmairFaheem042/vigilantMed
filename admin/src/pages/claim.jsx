@@ -24,10 +24,21 @@ const Claim = () => {
     getClaim(id);
   }, [id]);
 
-  const handleCheckClaimStatus = () => {
+  const handleCheckClaimStatus = async () => {
     console.log("Checking Claim Status");
     // ML Model will be called here to predict the fraud prediction
     // setClaimStatus("Approved") OR setClaimStatus("Rejected");
+
+    // convert the claims object to array
+    console.log("Prediction taking place")
+    const response = await fetch('http://localhost:4000/predict', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ data:claim }), // Example input
+    });
+    const result = await response.json();
+    console.log('Prediction:', result.prediction);
+
     setReport(true);
   };
 
